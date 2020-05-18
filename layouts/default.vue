@@ -10,6 +10,20 @@ import NavBar from '~/components/Navbar.vue'
 export default {
   components: {
     NavBar
+  },
+  head() {
+    return {
+      titleTemplate: '%s - Real World Events',
+      meta: [
+        {
+          // hid permet d'overwrite dans les pages enfants
+          hid: 'description',
+          name: 'description',
+          content:
+            'Whre you can find all the events taking place in your neighborhood'
+        }
+      ]
+    }
   }
 }
 </script>
