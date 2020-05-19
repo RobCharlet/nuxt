@@ -13,14 +13,15 @@
 
 <script>
 import EventCard from '~/components/EventCard'
+import EventService from '~/services/EventService'
 export default {
   components: {
     EventCard
   },
   // Called each time before the page component is loaded
-  async asyncData({ $axios, error }) {
+  async asyncData({ error }) {
     try {
-      const { data } = await $axios.get('http://localhost:3000/events')
+      const { data } = await EventService.getEvents()
       return {
         // merges with component data
         events: data
