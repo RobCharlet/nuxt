@@ -12,20 +12,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import EventCard from '~/components/EventCard'
-import EventService from '~/services/EventService'
 export default {
   components: {
     EventCard
   },
   // Called each time before the page component is loaded
-  async asyncData({ error }) {
+  async fetch({ store, error }) {
     try {
-      const { data } = await EventService.getEvents()
-      return {
-        // merges with component data
-        events: data
-      }
+      await store.dispatch('events/fetchEvents')
     } catch (e) {
       error({
         statusCode: 503,
@@ -33,6 +29,9 @@ export default {
       })
     }
   },
+  computed: mapState({
+    events: (state) => state.events.events
+  }),
   head() {
     return {
       title: 'Event Listening'
